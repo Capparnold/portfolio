@@ -62,7 +62,7 @@ span {
 }
 
 .navbar a {
-  font-size: 1.8rem;
+  font-size: 2rem;
   color: var(--text-color);
   margin-left: 4rem;
   font-weight: 500;
@@ -72,8 +72,8 @@ span {
 }
 
 .navbar a:hover {
-  color: var(--main-color);
-  border-bottom: 3px solid var(--main-color);
+  color: rgb(207, 191, 200);
+  border-bottom: 3px solid rgb(27, 27, 71);
 }
 
 .gradient-btn {
@@ -106,40 +106,191 @@ section {
   justify-content: center;
   gap: 15rem;
 }
+
 .home-content {
   display: flex;
+  font-size: 3rem;
   flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
+  justify-content: center;
+  gap: 0.5rem;
+  animation: fadeIn 1s ease-in-out;
 }
 
-.home-content h1 {
-  font-size: 8rem;
-  font-weight: 700;
-  margin-top: 1.5rem;
-  line-height: 1;
-}
-.home-content h3 {
-  margin: 1rem 0;
-  font-size: 4rem;
+/* Animate the child elements in sequence */
+.home-content h1,
+.home-content h3,
+.home-content p,
+.home-content .social-icons,
+.home-content .btn-group {
+  opacity: 0;
+  transform: translateY(-40px);
+  animation: dropIn 0.8s ease-out forwards;
 }
 
-.home-content p {
-  font-size: 2.5rem;
-  font-weight: 500;
-  line-height: 1.8;
+/* Delay each item slightly for a cascade effect */
+.home-content h1 { animation-delay: 0.3s; }
+.home-content h3 { animation-delay: 0.6s; }
+.home-content p { animation-delay: 0.9s; }
+.home-content .social-icons { animation-delay: 1.2s; }
+.home-content .btn-group { animation-delay: 1.5s; }
+
+/* Define the falling animation */
+@keyframes dropIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
+/* Optional soft fade for the container */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Extra polish (optional) */
+.home-content span {
+  font-weight: 600;
+}
+
+.home-content .btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background: var(--main-color);
+  color: #fff;
+  border-radius: 8px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.home-content .btn:hover {
+  transform: translateY(-3px);
+}
+
+:root {
+  --glow-color-1: #ff8fa3; /* Peach-pink */
+  --glow-color-2: #d89cd0; /* Neon cyan */
+}
+
+/* Dark mode automatically swaps colors */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --glow-color-1: #eb9dda; /* Neon cyan */
+    --glow-color-2: #ff8fa3; /* Peach-pink */
+  }
+}
+
+:root {
+  --glow-color-1: #ff8fa3; /* Peach-pink */
+  --glow-color-2: #af639f; /* Neon cyan */
+}
+
+/* Auto color swap in dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --glow-color-1: #b3538b; /* Neon cyan */
+    --glow-color-2: #ff8fa3; /* Peach-pink */
+  }
+}
+
+.home-img {
+  position: relative;
+  display: inline-block;
+}
+
+/* Create gradient aura behind the image */
+.home-img::before {
+  content: "";
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    var(--glow-color-1),
+    var(--glow-color-2)
+  );
+  filter: blur(50px);
+  opacity: 0.6;
+  z-index: 0;
+  animation: auraShift 10s ease-in-out infinite;
+}
+
+/* Main image */
 .home-img img {
+  position: relative;
   width: 32vw;
   border-radius: 50%;
-  box-shadow: 0 0 25px var(--main-color);
-  transition: 0.4s ease-in-out;
+  box-shadow: 0 0 30px var(--glow-color-1);
+  transition: transform 0.8s ease-in-out, box-shadow 0.8s ease-in-out;
+  transform-style: preserve-3d;
+  z-index: 1;
+  animation: floatTiltGlowShift 10s ease-in-out infinite;
+  animation-delay: 3s; /* starts after 3 seconds */
 }
+
+/* Hover: soft zoom + stronger glow */
 .home-img img:hover {
-  box-shadow: 0 0 25px var(--main-color);
-  box-shadow: 0 0 50px var(--main-color);
-  box-shadow: 0 0 100px var(--main-color);
+  transform: scale(1.05);
+  box-shadow:
+    0 0 60px var(--glow-color-2),
+    0 0 120px var(--glow-color-2),
+    0 0 200px var(--glow-color-2);
 }
+
+/* Floating + tilting motion */
+@keyframes floatTiltGlowShift {
+  0% {
+    transform: translateY(0) rotateY(0deg) rotateX(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotateY(20deg) rotateX(8deg);
+  }
+  50% {
+    transform: translateY(0) rotateY(0deg) rotateX(0deg);
+  }
+  75% {
+    transform: translateY(10px) rotateY(-20deg) rotateX(-8deg);
+  }
+  100% {
+    transform: translateY(0) rotateY(0deg) rotateX(0deg);
+  }
+}
+
+/* Gradient aura slow color shift */
+@keyframes auraShift {
+  0% {
+    background: radial-gradient(
+      circle at center,
+      var(--glow-color-1),
+      var(--glow-color-2)
+    );
+  }
+  50% {
+    background: radial-gradient(
+      circle at center,
+      var(--glow-color-2),
+      var(--glow-color-1)
+    );
+  }
+  100% {
+    background: radial-gradient(
+      circle at center,
+      var(--glow-color-1),
+      var(--glow-color-2)
+    );
+  }
+}
+
 .social-icons a {
   display: inline-flex;
   justify-content: center;
@@ -204,18 +355,110 @@ section {
   gap: 10rem;
   background: var(--second-bg-color);
 }
-.about-img img {
-  width: 32vw;
-  border-radius: 50%;
-  box-shadow: 0 0 25px var(--main-color);
-  transition: 0.4s ease-in-out;
+:root {
+  --glow-color-1: #ff8fa3; /* Peach-pink */
+  --glow-color-2: #cc82b6; /* Neon cyan */
 }
 
-.about-img img:hover {
-  box-shadow: 0 0 25px var(--main-color);
-  box-shadow: 0 0 50px var(--main-color);
-  box-shadow: 0 0 100px var(--main-color);
+/* Dark mode color swap */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --glow-color-1: #e27fc1; /* Neon cyan */
+    --glow-color-2: #ff8fa3; /* Peach-pink */
+  }
 }
+
+.about-img {
+  position: relative;
+  display: inline-block;
+}
+
+/* Gradient aura behind the about image */
+.about-img::before {
+  content: "";
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    var(--glow-color-1),
+    var(--glow-color-2)
+  );
+  filter: blur(50px);
+  opacity: 0.6;
+  z-index: 0;
+  animation: auraShiftAbout 10s ease-in-out infinite;
+}
+
+/* Main about image */
+.about-img img {
+  position: relative;
+  width: 32vw;
+  border-radius: 50%;
+  box-shadow: 0 0 30px var(--glow-color-1);
+  transition: transform 0.8s ease-in-out, box-shadow 0.8s ease-in-out;
+  transform-style: preserve-3d;
+  z-index: 1;
+  animation: floatTiltGlowShiftAbout 10s ease-in-out infinite;
+  animation-delay: 3s;
+}
+
+/* Hover: gentle zoom + stronger glow */
+.about-img img:hover {
+  transform: scale(1.05);
+  box-shadow:
+    0 0 60px var(--glow-color-2),
+    0 0 120px var(--glow-color-2),
+    0 0 200px var(--glow-color-2);
+}
+
+/* Floating + tilting (reversed direction) */
+@keyframes floatTiltGlowShiftAbout {
+  0% {
+    transform: translateY(0) rotateY(0deg) rotateX(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotateY(-20deg) rotateX(8deg);
+  }
+  50% {
+    transform: translateY(0) rotateY(0deg) rotateX(0deg);
+  }
+  75% {
+    transform: translateY(10px) rotateY(20deg) rotateX(-8deg);
+  }
+  100% {
+    transform: translateY(0) rotateY(0deg) rotateX(0deg);
+  }
+}
+
+/* Gradient aura slow color shift (same as home version) */
+@keyframes auraShiftAbout {
+  0% {
+    background: radial-gradient(
+      circle at center,
+      var(--glow-color-1),
+      var(--glow-color-2)
+    );
+  }
+  50% {
+    background: radial-gradient(
+      circle at center,
+      var(--glow-color-2),
+      var(--glow-color-1)
+    );
+  }
+  100% {
+    background: radial-gradient(
+      circle at center,
+      var(--glow-color-1),
+      var(--glow-color-2)
+    );
+  }
+}
+
 
 .about-content h2 {
   font-size: 7rem;
@@ -257,7 +500,28 @@ section {
 
 .services h2 {
   color: var(--text-color);
+  font-size: 3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  animation: popIn 1.2s ease-out forwards;
 }
+
+/* keyframes for the popping animation */
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(20px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.15) translateY(-5px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
 
 .services-container {
   display: grid;
@@ -315,6 +579,37 @@ section {
 .projects {
   background-color: var(--second-bg-color);
 }
+
+.projects h2 {
+  color: var(--text-color);
+  font-size: 3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  animation: bounceIn 1.5s ease-out forwards;
+}
+
+/* keyframes for bounce effect */
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(80px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1) translateY(-20px);
+  }
+  70% {
+    transform: scale(0.95) translateY(10px);
+  }
+  90% {
+    transform: scale(1.02) translateY(-5px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
 
 .projects-box {
   display: grid;
