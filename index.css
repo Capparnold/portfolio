@@ -787,6 +787,11 @@ section {
     grid-template-columns: 1fr; /* makes cards stack nicely */
   }
 
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+
   .project-card {
     margin: 0 auto; /* centers card in case it’s smaller than container */
   }
