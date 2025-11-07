@@ -726,7 +726,7 @@ section {
   font-size: 16px;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
   #menu-icon {
     display: block;
   }
@@ -781,7 +781,19 @@ section {
   .about img {
     width: 52vw;
   }
+
+ .projects-box {
+    justify-content: center; /* centers the whole grid */
+    grid-template-columns: 1fr; /* makes cards stack nicely */
+  }
+
+  .project-card {
+    margin: 0 auto; /* centers card in case it’s smaller than container */
+  }
+
+
   .contact form {
     flex-direction: column;
   }
+
 }
